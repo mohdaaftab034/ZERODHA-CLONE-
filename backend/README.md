@@ -13,6 +13,59 @@ The backend now:
 - validates passwords correctly before issuing the token
 - rejects requests cleanly when the Mongo URI or JWT secret is missing
 
+## Response examples
+
+### Login
+
+Request:
+
+```http
+POST /api/auth/login
+Content-Type: application/json
+
+{
+	"email": "user@example.com",
+	"password": "password123"
+}
+```
+
+Success response:
+
+```json
+{
+	"message": "Login successful",
+	"token": "<jwt-token>",
+	"user": {
+		"id": "<user-id>",
+		"name": "User Name",
+		"email": "user@example.com"
+	}
+}
+```
+
+### Holdings
+
+Request header:
+
+```http
+Authorization: Bearer <jwt-token>
+```
+
+Success response:
+
+```json
+[
+	{
+		"name": "TCS",
+		"qty": 10,
+		"avg": 3200,
+		"price": 3350,
+		"net": "+5%",
+		"day": "+1%"
+	}
+]
+```
+
 ## Environment variables
 
 - `MONGO_URI` or `MONGO_URL`
